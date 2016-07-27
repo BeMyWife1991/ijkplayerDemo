@@ -1,0 +1,47 @@
+apply plugin: 'com.android.application'
+
+android {
+    //使用全局设置
+    compileSdkVersion 23
+    buildToolsVersion '23.0.2'
+
+    //包含manifests里的编译属性
+    defaultConfig {
+        applicationId "com.sunon.player"
+        minSdkVersion 14
+        targetSdkVersion 21
+        versionCode 10790
+        versionName "1.1.1"
+
+        // dex突破65535的限制
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    //打包开始时，lint运行将有可能发生错误，当有异常发生时，此设置将忽略警告，继续运行脚本，若忽略，打包过程将被强行终止
+    lintOptions {
+        abortOnError false
+    }
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.2'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+//    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.2.1'
+}

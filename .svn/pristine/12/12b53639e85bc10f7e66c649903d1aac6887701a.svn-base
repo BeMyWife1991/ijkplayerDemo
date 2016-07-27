@@ -1,0 +1,34 @@
+apply plugin: 'com.android.library'
+
+android {
+    //使用全局设置
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    //包含manifests里的编译属性
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion //最小支持sdk版本
+        targetSdkVersion rootProject.ext.targetSdkVersion //编译时的目标sdk版本
+        versionCode rootProject.ext.versionCode //程序版本号
+        versionName rootProject.ext.versionName //程序版本名称
+
+        // dex突破65535的限制
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    //打包开始时，lint运行将有可能发生错误，当有异常发生时，此设置将忽略警告，继续运行脚本，若忽略，打包过程将被强行终止
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.2.1'
+}
